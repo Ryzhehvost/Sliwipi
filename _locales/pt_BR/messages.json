@@ -1,12 +1,9 @@
 {
   "ext_desc": {
-    "message": "Esta extensão serve para reduzir drasticamente a latência ao tentar visualizar uma biblioteca ou lista de desejos com muitos elementos no Steam."
+    "message": "Esta extensão serve para reduzir drasticamente a latência ao tentar visualizar uma biblioteca com muitos elementos no Steam."
   },
   "options_library_performance_improvement": {
     "message": "Melhorar desempenho em bibliotecas"
-  },
-  "options_wishlist_performance_improvement": {
-    "message": "Melhorar desempenho em listas de desejos"
   },
   "options_language": {
     "message": "Idioma"
@@ -71,50 +68,8 @@
   "library_filter_not_played": {
     "message": "nunca jogados"
   },
-  "wishlist_sort_by": {
-    "message": "Ordenar por"
-  },
-  "wishlist_sort_rank": {
-    "message": "posição"
-  },
-  "wishlist_sort_name": {
-    "message": "nome"
-  },
-  "wishlist_sort_price": {
-    "message": "preço"
-  },
-  "wishlist_sort_discount_p": {
-    "message": "desconto (percentual)"
-  },
-  "wishlist_sort_discount_a": {
-    "message": "desconto (valor)"
-  },
-  "wishlist_filter_by": {
-    "message": "Mostrar"
-  },
-  "wishlist_filter_all": {
-    "message": "todos os jogos"
-  },
-  "wishlist_filter_discount": {
-    "message": "jogos com desconto"
-  },
-  "wishlist_filter": {
+  "library_filter": {
     "message": "Buscar"
-  },
-  "wishlist_save": {
-    "message": "Salvar alterações"
-  },
-  "wishlist_loading": {
-    "message": "Carregando..."
-  },
-  "wishlist_header_total": {
-    "message": "Lista de desejos"
-  },
-  "wishlist_includes_total": {
-    "message": "Total de 0 itens:"
-  },
-  "wishlist_parsing": {
-    "message": "Preparando..."
   },
   "pagination_button_prev": {
     "message": "< ant"

@@ -14,12 +14,12 @@
  limitations under the License.
  */
 
-.wishlist-owned-list-pagination {
+.library-owned-list-pagination {
   text-align: center;
   margin: 15px 0;
 }
 
-.wishlist-owned-list-pagination > * {
+.library-owned-list-pagination > * {
   display: inline-block;
   height: 24px;
   min-width: 44px;

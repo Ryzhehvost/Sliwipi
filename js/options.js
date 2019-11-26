@@ -14,12 +14,6 @@
  limitations under the License.
  */
 
-let wishlist = {
-  enabled: document.querySelector('#wishlist-enabled'),
-  perPage: document.querySelector('#wishlist-per-page'),
-  sortBy: document.querySelector('#wishlist-sorting'),
-  useJPY: document.querySelector('#use-jpy')
-};
 let library = {
   enabled: document.querySelector('#library-enabled'),
   perPage: document.querySelector('#library-per-page'),
@@ -33,12 +27,6 @@ let paginationButtonsAlignment = document.querySelector('#pagination-buttons-ali
 const POSSIBLE_LANGUAGES = Object.values(LIST_AVAILABLE_LANGUAGES).concat(['auto']);
 function saveOptions() {
   let data = {
-    wishlist: {
-      enabled: wishlist.enabled.checked,
-      perPage: parseInt(wishlist.perPage.value, 10),
-      sortBy: wishlist.sortBy.value,
-      useJPY: wishlist.useJPY.checked
-    },
     library: {
       enabled: library.enabled.checked,
       perPage: parseInt(library.perPage.value, 10),
@@ -55,9 +43,6 @@ function saveOptions() {
   applyTranslation(true);
   alignPaginationButtons();
 }
-wishlist.enabled.addEventListener('change', saveOptions);
-wishlist.perPage.addEventListener('change', saveOptions);
-wishlist.sortBy.addEventListener('change', saveOptions);
 
 library.enabled.addEventListener('change', saveOptions);
 library.perPage.addEventListener('change', saveOptions);
@@ -72,7 +57,6 @@ function alignPaginationButtons() {
   chrome.tabs.query({
     url: [
       'http://steamcommunity.com/*/games*',
-      'http://steamcommunity.com/*/wishlist*'
     ]
   }, function (tabs) {
     for(let tab of tabs) {
@@ -97,7 +81,6 @@ async function applyTranslation(sendMessage) {
     chrome.tabs.query({
       url: [
         'http://steamcommunity.com/*/games*',
-        'http://steamcommunity.com/*/wishlist*'
       ]
     }, function (tabs) {
       for(let tab of tabs) {
@@ -109,12 +92,6 @@ async function applyTranslation(sendMessage) {
 
 async function restoreOptions() {
   let data = await storage.sync.get({
-    wishlist: {
-      enabled: true,
-      perPage: 15,
-      sortBy: 'rank',
-      useJPY: false
-    },
     library: {
       enabled: true,
       perPage: 15,
@@ -126,12 +103,6 @@ async function restoreOptions() {
     },
     paginationButtonsAlignment: 'dynamic'
   });
-
-  if (data.wishlist.enabled) {
-    wishlist.enabled.checked = true;
-  }
-  wishlist.perPage.value = data.wishlist.perPage;
-  wishlist.sortBy.value = data.wishlist.sortBy;
 
   if (data.library.enabled) {
     library.enabled.checked = true;

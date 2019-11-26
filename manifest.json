@@ -10,10 +10,16 @@
     "persistent": true
   },
 
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "Sliwipi@example.com"
+    }
+  },
+
   "web_accessible_resources": [
     "css/common.css",
     "css/library-performance.css",
-    "css/wishlist-performance.css",
     "js/BuildGameRow-injectable.js",
     "js/pagination.js",
     "js/thenBy.js",
@@ -21,9 +27,9 @@
     "js/debounce.js",
     "js/dom-i18n.js",
     "js/library-performance-injectable.js",
+    "js/library-performance.js",
     "_locales/*",
-    "html/library.html",
-    "html/wishlist.html"
+    "html/library.html"
   ],
 
   "icons": {
@@ -42,29 +48,6 @@
   },
 
   "content_scripts": [
-    {
-      "matches": [
-        "*://steamcommunity.com/*/games/?tab=recent*",
-        "*://steamcommunity.com/*/games?tab=recent*"
-      ],
-      "js": [
-        "js/cookies.js",
-        "js/get-data-by-event.js",
-        "js/dom-i18n.js",
-        "js/storage.js",
-        "js/constants.js",
-        "js/jquery.min.js",
-        "js/pagination.js",
-        "js/debounce.js",
-        "js/is-in-viewport.js",
-        "js/thenBy.js",
-        "js/settings-change-listener.js",
-        "js/money-formatting.js",
-        "js/query-params.js",
-        "js/wishlist-performance.js"
-      ],
-      "run_at": "document_end"
-    },
     {
       "matches": [
         "*://steamcommunity.com/*/games/?tab=all*",
@@ -90,7 +73,6 @@
     "storage",
     "tabs",
     "*://steamcommunity.com/*/games*",
-    "*://steamcommunity.com/*/wishlist*",
     "*://store.steampowered.com/about*",
     "*://store.steampowered.com/api/*"
   ],

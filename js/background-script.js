@@ -17,17 +17,14 @@
 const REGEXP_LINK_PROTOCOL = /^(https?:)\/\//;
 const REGEXP_LINK_CC = /cc=([a-z]{2})/;
 const REGEXP_USER_LINK = /((?:\/id\/[^?\/]+)|(?:\/profiles\/\d{17}))/i;
-/** Contains <code>true</code> or <code>false</code> depending on if wishlist performance improvement is enabled in options or not. */
-let wishlistEnabled;
 /** Contains <code>true</code> or <code>false</code> depending on if library performance improvement is enabled in options or not. */
 let libraryEnabled;
-/** Retrieves the information about wishlist being enabled or not from the storage or from the storage event */
+/** Retrieves the information about library optimization being enabled or not from the storage or from the storage event */
 function retrieveStorageData(changes, areaName) {
   if(
     (areaName === 'sync' || !areaName) &&
     ((changes &&
         (
-          (changes.wishlist && changes.wishlist.newValue && changes.wishlist.newValue.enabled != null) ||
           (changes.library && changes.library.newValue && changes.library.newValue.enabled != null)
         )
     ) || !changes)
@@ -37,16 +34,10 @@ function retrieveStorageData(changes, areaName) {
         library: {
           enabled: true
         },
-        wishlist: {
-          enabled: true
-        }
       }, function (data) {
-        wishlistEnabled = data.wishlist.enabled;
         libraryEnabled = data.library.enabled;
       });
     } else {
-      if(changes.wishlist && changes.wishlist.newValue)
-        wishlistEnabled = changes.wishlist.newValue.enabled;
       if(changes.library && changes.library.newValue)
         libraryEnabled = changes.library.newValue.enabled;
     }
@@ -55,35 +46,6 @@ function retrieveStorageData(changes, areaName) {
 chrome.storage.onChanged.addListener(retrieveStorageData);
 retrieveStorageData();
 
-chrome.webRequest.onBeforeRequest.addListener(
-  function (details) {
-    // Redirect all requests to this page that aren't POST and aren't made using Ajax
-    if (details.method !== 'POST' && wishlistEnabled && details.type !== 'xmlhttprequest') {
-      const id = details.url.match(REGEXP_USER_LINK)[1];
-      const protocol = details.url.match(REGEXP_LINK_PROTOCOL)[1];
-      let cc = details.url.match(REGEXP_LINK_CC);
-      cc = cc ? `&cc=${cc[1]}` : '';
-      return { redirectUrl: `${protocol}//steamcommunity.com${id}/games/?tab=recent${cc}#wishlist-redirected` };
-    }
-    return {};
-  },
-  {urls: ["*://steamcommunity.com/*/wishlist*", "*://steamcommunity.com/*/wishlist/?*", "*://steamcommunity.com/*/wishlist?*"]},
-  ["blocking"]
-);
-chrome.webRequest.onHeadersReceived.addListener(
-  function(details) {
-    // Redirect only POST requests to this page
-    if(details.method !== 'POST')
-      return {};
-    const id = details.url.match(REGEXP_USER_LINK)[1];
-    const protocol = details.url.match(REGEXP_LINK_PROTOCOL)[1];
-    return {
-      redirectUrl: `${protocol}//steamcommunity.com${id}/games/?tab=recent#wishlist-redirected`
-    };
-  },
-  {urls: ["*://steamcommunity.com/*/wishlist*", "*://steamcommunity.com/*/wishlist/?*", "*://steamcommunity.com/*/wishlist?*"]},
-  ["blocking"]
-);
 chrome.webRequest.onBeforeRequest.addListener(
   function(details) {
     if(details.url.endsWith('#library=true') || details.url.endsWith('#library=false')) {

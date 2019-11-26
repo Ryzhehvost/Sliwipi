@@ -13,10 +13,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-const STR_EXTENSION_NAME = 'Library and Wishlist Peformance Fix';
+const STR_EXTENSION_NAME = 'Library Peformance Fix';
 
-/** Regexp for location after redirecting from <code>/wishlist</code> */
-const REGEXP_LOCATION = /^https?:\/\/(?:www\.)?steamcommunity\.com\/(?:(?:id\/[^\/.]+)|(?:profiles\/\d{17}))\/games\/?(?:\?tab=recent)(?:[?&]cc=[a-z]{2})?#wishlist-redirected$/i;
 /** A regexp for extracting the part of URL until <code>id/custom_url</code> or <code>profiles/profile_id</code> (inclusive) */
 const REGEXP_LINK = /^(https?:\/\/(?:www\.)?steamcommunity\.com\/(?:(?:id\/[^\/.]+)|(?:profiles\/\d{17})))\/.+$/i;
 /** A regexp for extracting user's sessionID from the store site */
@@ -32,11 +30,7 @@ const TIME_12_HOURS = 1000 * 60 * 60 * 12;
 
 const LINK_GAME_LIST_CSS = 'http://community.edgecast.steamstatic.com/public/css/skin_1/profile_games_list.css';
 const LINK_GAME_CSS = 'http://store.edgecast.steamstatic.com/public/css/v6/game.css?v=MAcFD0Vgzrdm';
-const LINK_STORE_API_REMOVE_FROM_WISHLIST = '//store.steampowered.com/api/removefromwishlist';
 const LINK_STORE_ABOUT = `//store.steampowered.com/${location.protocol === 'http:' ? 'cart' : 'about'}/`;
-
-const CLASS_OVERLAY = 'wishlist-performance-fix-overlay';
-const CLASS_OVERLAY_CONTAINER = 'wishlist-performance-fix-overlay-container';
 
 /** The list of languages this extension is translated into */
 const LIST_AVAILABLE_LANGUAGES = {

@@ -97,7 +97,7 @@
     BuildGameRow(game);
   }
 
-  document.querySelector('#games_list_rows').innerHTML = '<div class="wishlist-owned-list-pagination"></div><div class="sliwipi-actual-list"></div><div class="wishlist-owned-list-pagination"></div>';
+  document.querySelector('#games_list_rows').innerHTML = '<div class="library-owned-list-pagination"></div><div class="sliwipi-actual-list"></div><div class="library-owned-list-pagination"></div>';
 
   let hideUnnecessaryOptionsImg1 = document.querySelector('#global_actions > a > img');
   let hideUnnecessaryOptionsImg2 = document.querySelector('.profile_small_header_avatar > .playerAvatar > img');
@@ -130,7 +130,7 @@
   gameslistSortOptions.innerHTML = SLIWIPI.html;
 
   let filterGamesLabel = document.createElement('span');
-  filterGamesLabel.dataset.i18n = 'wishlist_filter';
+  filterGamesLabel.dataset.i18n = 'library_filter';
   gameslistSortOptions.parentNode.insertBefore(filterGamesLabel, gameslistSortOptions.nextSibling);
   filterGamesLabel.parentNode.removeChild(filterGamesLabel.nextSibling);
 
@@ -231,7 +231,7 @@
       setTimeout(reapplyPagination.bind(null, num), 500);
       return;
     }
-    $('.wishlist-owned-list-pagination').pagination({
+    $('.library-owned-list-pagination').pagination({
       currentPage: num,
       elements: filteredData,
       perPage: SLIWIPI.perPage,
