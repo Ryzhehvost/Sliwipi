@@ -14,9 +14,6 @@
  limitations under the License.
  */
 
-const REGEXP_LINK_PROTOCOL = /^(https?:)\/\//;
-const REGEXP_LINK_CC = /cc=([a-z]{2})/;
-const REGEXP_USER_LINK = /((?:\/id\/[^?\/]+)|(?:\/profiles\/\d{17}))/i;
 /** Contains <code>true</code> or <code>false</code> depending on if library performance improvement is enabled in options or not. */
 let libraryEnabled;
 /** Retrieves the information about library optimization being enabled or not from the storage or from the storage event */
@@ -45,17 +42,3 @@ function retrieveStorageData(changes, areaName) {
 }
 chrome.storage.onChanged.addListener(retrieveStorageData);
 retrieveStorageData();
-
-chrome.webRequest.onBeforeRequest.addListener(
-  function(details) {
-    if(details.url.endsWith('#library=true') || details.url.endsWith('#library=false')) {
-      return {};
-    }
-    let url = details.url.replace(/#.*$/, '');
-    return {
-      redirectUrl: `${url}#library=${libraryEnabled}`
-    };
-  },
-  {urls: ["*://steamcommunity.com/*/games/?tab=all*", "*://steamcommunity.com/*/games?tab=all*"]},
-  ["blocking"]
-);

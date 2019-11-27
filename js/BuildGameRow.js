@@ -14,8 +14,8 @@
  limitations under the License.
  */
 (function() {
-  let hash = location.hash.substr(1);
-  let enabled = hash === 'library=true';
+   chrome.storage.sync.get(["library"],library => {
+  let enabled = library.library.enabled;
 
   history.replaceState({}, document.title, location.href.replace(location.hash, ''));
 
@@ -29,4 +29,5 @@
   s.src = chrome.extension.getURL('/js/BuildGameRow-injectable.js');
   document.documentElement.appendChild(s);
   s.parentNode.removeChild(s);
+  });
 })();

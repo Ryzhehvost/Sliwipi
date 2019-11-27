@@ -40,8 +40,6 @@ function saveOptions() {
   };
   storage.sync.set(data);
 
-  applyTranslation(true);
-  alignPaginationButtons();
 }
 
 library.enabled.addEventListener('change', saveOptions);
@@ -53,42 +51,6 @@ language.main.addEventListener('change', saveOptions);
 
 paginationButtonsAlignment.addEventListener('change', saveOptions);
 
-function alignPaginationButtons() {
-  chrome.tabs.query({
-    url: [
-      'http://steamcommunity.com/*/games*',
-    ]
-  }, function (tabs) {
-    for(let tab of tabs) {
-      chrome.tabs.sendMessage(tab.id, {newPaginationButtonsAlignment: paginationButtonsAlignment.value});
-    }
-  });
-}
-async function applyTranslation(sendMessage) {
-  let lang;
-  if (language.options.value !== 'auto') {
-    lang = language.options.value;
-  } else {
-    lang = navigator.language.replace('-', '_');
-    if (!POSSIBLE_LANGUAGES.includes(lang)) {
-      lang = 'en';
-    }
-  }
-  let strings = await $.getJSON(chrome.extension.getURL(`/_locales/${lang}/messages.json`));
-  i18nDOM.nonchrome('data-i18n', strings);
-
-  if (sendMessage) {
-    chrome.tabs.query({
-      url: [
-        'http://steamcommunity.com/*/games*',
-      ]
-    }, function (tabs) {
-      for(let tab of tabs) {
-        chrome.tabs.sendMessage(tab.id, {newLanguage: language.main.value});
-      }
-    });
-  }
-}
 
 async function restoreOptions() {
   let data = await storage.sync.get({
@@ -114,7 +76,5 @@ async function restoreOptions() {
   language.main.value = data.language.main;
 
   paginationButtonsAlignment.value = data.paginationButtonsAlignment;
-
-  applyTranslation();
 }
 restoreOptions();

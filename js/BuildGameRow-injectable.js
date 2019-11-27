@@ -52,7 +52,7 @@
     }
 
     let s = document.createElement('script');
-    s.textContent = str.join('\n');
+    s.innerHTML = str.join('\n');
     document.head.appendChild(s);
     s.parentNode.removeChild(s);
 

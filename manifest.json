@@ -60,7 +60,6 @@
         "js/constants.js",
         "js/jquery.min.js",
         "js/storage.js",
-        "js/settings-change-listener.js",
         "js/library-performance.js"
       ],
       "run_at": "document_start"
@@ -68,10 +67,7 @@
   ],
 
   "permissions": [
-    "webRequest",
-    "webRequestBlocking",
     "storage",
-    "tabs",
     "*://steamcommunity.com/*/games*",
     "*://store.steampowered.com/about*",
     "*://store.steampowered.com/api/*"
