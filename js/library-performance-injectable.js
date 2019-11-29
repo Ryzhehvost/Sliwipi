@@ -46,7 +46,6 @@
  * @property {Array} elements
  * @property {number} perPage
  * @property {function} change
- * @property {object} languageData
  */
 /**
  * @typedef {object} ITemplate
@@ -64,7 +63,6 @@
 /**
  * @typedef {object} ISliwipi
  * @property {number} perPage
- * @property {Array} languageData
  * @property {object} fileSizeMultipliers
  * @property {string} html
  */
@@ -128,9 +126,11 @@
   let gameslistSortOptions = document.querySelector('#gameslist_sort_options');
   gameslistSortOptions.id = '';
   gameslistSortOptions.innerHTML = SLIWIPI.html;
+  console.log(SLIWIPI);
 
   let filterGamesLabel = document.createElement('span');
-  filterGamesLabel.dataset.i18n = 'library_filter';
+  filterGamesLabel.dataset.localeText = 'library_filter';
+  filterGamesLabel.textContent = 'Filter games';
   gameslistSortOptions.parentNode.insertBefore(filterGamesLabel, gameslistSortOptions.nextSibling);
   filterGamesLabel.parentNode.removeChild(filterGamesLabel.nextSibling);
 
@@ -150,7 +150,7 @@
   function changeDropdownLabel(target) {
     let label = target.parentNode.parentNode.parentNode.querySelector('.sliwipi-dropdown-label');
     label.textContent = target.textContent;
-    label.dataset.i18n = target.dataset.i18n;
+    label.dataset.localeText = target.dataset.localeText;
   }
   changeDropdownLabel(document.querySelector(`[data-data="${sortingBy}"]`));
   $('#sliwipi-sort-by-dropdown').find('a').on('click', function(e) {
@@ -236,7 +236,6 @@
       elements: filteredData,
       perPage: SLIWIPI.perPage,
       change: changePage,
-      languageData: SLIWIPI.languageData
     });
   }
 

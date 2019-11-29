@@ -23,40 +23,21 @@
   <script src="/js/jquery.min.js"></script>
 </head>
 <body>
-<fieldset>
-  <legend data-i18n="options_language">Language</legend>
-  <label class="flex"><span data-i18n="options_main_language">Main:</span>
-    <select class="flex-1" id="features-language">
-      <option value="auto">Auto</option>
-      <option value="en">English</option>
-      <option value="pt_BR">Português Brasileiro (Brazilian Portuguese)</option>
-      <option value="ru">Русский (Russian)</option>
-    </select>
-  </label>
-  <label class="flex small-margin-top"><span data-i18n="options_options_language">Options:</span>
-    <select class="flex-1" id="options-language">
-      <option value="auto">Auto</option>
-      <option value="en">English</option>
-      <option value="pt_BR">Português Brasileiro (Brazilian Portuguese)</option>
-      <option value="ru">Русский (Russian)</option>
-    </select>
-  </label>
-</fieldset>
 <fieldset class="margin-top">
-  <legend data-i18n="options_pagination">Pagination</legend>
-  <label><span data-i18n="options_pagination_buttons_alignment">Previous/Next buttons position:</span>
+  <legend data-locale-text="options_pagination">Pagination</legend>
+  <label><span data-locale-text="options_pagination_buttons_alignment">Previous/Next buttons position:</span>
     <select id="pagination-buttons-alignment">
-      <option value="dynamic" data-i18n="options_pagination_buttons_alignment_dynamic">Dynamic</option>
-      <option value="edges" data-i18n="options_pagination_buttons_alignment_edges">Fixed at ages</option>
-      <option value="fixed" data-i18n="options_pagination_buttons_alignment_fixed">Fixed</option>
+      <option value="dynamic" data-locale-text="options_pagination_buttons_alignment_dynamic">Dynamic</option>
+      <option value="edges" data-locale-text="options_pagination_buttons_alignment_edges">Fixed at ages</option>
+      <option value="fixed" data-locale-text="options_pagination_buttons_alignment_fixed">Fixed</option>
     </select>
   </label>
 </fieldset>
 <fieldset class="margin-top">
-  <legend data-i18n="options_library_performance_improvement">Library performance improvement</legend>
-  <label><span data-i18n="options_enabled">Enabled</span> <input type="checkbox" id="library-enabled"></label>
+  <legend data-locale-text="options_library_performance_improvement">Library performance improvement</legend>
+  <label><span data-locale-text="options_enabled">Enabled</span> <input type="checkbox" id="library-enabled"></label>
   <br>
-  <label><span data-i18n="options_rows_per_page">Rows per page:</span>
+  <label><span data-locale-text="options_rows_per_page">Rows per page:</span>
     <select id="library-per-page">
       <option value="5">5</option>
       <option value="10">10</option>
@@ -77,18 +58,17 @@
     </select>
   </label>
   <br>
-  <label><span data-i18n="options_default_sort_by">Default sorting:</span>
+  <label><span data-locale-text="options_default_sort_by">Default sorting:</span>
     <select id="library-sorting">
-      <option value="name" data-i18n="library_sort_name">name</option>
-      <option value="playtime" data-i18n="library_sort_playtime">playtime</option>
+      <option value="name" data-locale-text="library_sort_name">name</option>
+      <option value="playtime" data-locale-text="library_sort_playtime">playtime</option>
     </select>
   </label>
 </fieldset>
 <p class="about-link">
-  <a href="about.html" target="_blank" data-i18n="about_link">About</a>
+  <a href="about.html" target="_blank" data-locale-text="about_link">About</a>
 </p>
 <script src="/js/storage.js"></script>
-<script src="/js/dom-i18n.js"></script>
 <script src="/js/options.js"></script>
 </body>
 </html>

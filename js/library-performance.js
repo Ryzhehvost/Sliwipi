@@ -22,24 +22,13 @@
       perPage: 15,
       enabled: true,
       sortBy: 'name'
-    },
-    language: {
-      main: 'auto'
     }
   });
-  let mainLanguage = library.language.main;
   library = library.library;
   if (!library.enabled)
     return;
 
-  let language = getCookie('Steam_Language');
-  language = LIST_AVAILABLE_LANGUAGES[language] || 'en';
-  let autoLanguage = language;
-  language = mainLanguage === 'auto' ? language : mainLanguage;
-  let LANGUAGE_DATA = $.getJSON(chrome.extension.getURL(`/_locales/${language}/messages.json`));
-
   async function onReady() {
-    LANGUAGE_DATA = await LANGUAGE_DATA;
 
     let link1 = document.createElement('link');
     link1.setAttribute('rel', 'stylesheet');
@@ -59,7 +48,6 @@
     let s = document.createElement('script');
     s.innerHTML = `window.SLIWIPI = { 
       perPage: ${library.perPage},
-      languageData: ${JSON.stringify(LANGUAGE_DATA)},
       fileSizeMultipliers: ${JSON.stringify(FILE_SIZE_MULTIPLIER)},
       sortBy: ${JSON.stringify(library.sortBy)},
       html: \`${encodeURIComponent(html)}\`
@@ -79,11 +67,6 @@
 
     s = document.createElement('script');
     s.src = chrome.extension.getURL('/js/thenBy.js');
-    document.body.appendChild(s);
-    s.parentNode.removeChild(s);
-
-    s = document.createElement('script');
-    s.src = chrome.extension.getURL('/js/dom-i18n.js');
     document.body.appendChild(s);
     s.parentNode.removeChild(s);
 

@@ -19,22 +19,13 @@ let library = {
   perPage: document.querySelector('#library-per-page'),
   sortBy: document.querySelector('#library-sorting')
 };
-let language = {
-  options: document.querySelector('#options-language'),
-  main: document.querySelector('#features-language')
-};
 let paginationButtonsAlignment = document.querySelector('#pagination-buttons-alignment');
-const POSSIBLE_LANGUAGES = Object.values(LIST_AVAILABLE_LANGUAGES).concat(['auto']);
 function saveOptions() {
   let data = {
     library: {
       enabled: library.enabled.checked,
       perPage: parseInt(library.perPage.value, 10),
       sortBy: library.sortBy.value
-    },
-    language: {
-      options: language.options.value,
-      main: language.main.value
     },
     paginationButtonsAlignment: paginationButtonsAlignment.value
   };
@@ -46,9 +37,6 @@ library.enabled.addEventListener('change', saveOptions);
 library.perPage.addEventListener('change', saveOptions);
 library.sortBy.addEventListener('change', saveOptions);
 
-language.options.addEventListener('change', saveOptions);
-language.main.addEventListener('change', saveOptions);
-
 paginationButtonsAlignment.addEventListener('change', saveOptions);
 
 
@@ -59,10 +47,6 @@ async function restoreOptions() {
       perPage: 15,
       sortBy: 'name'
     },
-    language: {
-      options: 'auto',
-      main: 'auto'
-    },
     paginationButtonsAlignment: 'dynamic'
   });
 
@@ -71,9 +55,6 @@ async function restoreOptions() {
   }
   library.perPage.value = data.library.perPage;
   library.sortBy.value = data.library.sortBy;
-
-  language.options.value = data.language.options;
-  language.main.value = data.language.main;
 
   paginationButtonsAlignment.value = data.paginationButtonsAlignment;
 }

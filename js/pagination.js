@@ -23,7 +23,7 @@
     if (totalPages <= 1)
       return '';
     if (currentPage > 1)
-      html += '<button type="button" class="pagination-navprev btnv6_blue_hoverfade" data-i18n="pagination_button_prev">&lt; prev</button>';
+      html += '<button type="button" class="pagination-navprev btnv6_blue_hoverfade" data-locale-text="pagination_button_prev">&lt; prev</button>';
     if(currentPage !== 1)
       html += '<button type="button" class="btnv6_blue_hoverfade">1</button>';
     else
@@ -53,7 +53,7 @@
     else
       html += '<span>' + totalPages + '</span>';
     if (currentPage < totalPages)
-      html += '<button type="button" class="pagination-navnext btnv6_blue_hoverfade" data-i18n="pagination_button_next">next &gt;</button>';
+      html += '<button type="button" class="pagination-navnext btnv6_blue_hoverfade" data-locale-text="pagination_button_next">next &gt;</button>';
     return html;
   }
 
@@ -62,7 +62,6 @@
    * @property {number} currentPage
    * @property {object[]} elements
    * @property {number} perPage Amount of items displayed per page
-   * @property {object} languageData Object containing translated strings
    */
   /**
    * @param {PaginationPluginParams} obj
@@ -83,14 +82,8 @@
           obj.currentPage = +newPage;
         let html = generatePagination(obj.currentPage, obj.elements, obj.perPage);
         $this.html(html);
-        if(i18nDOM && obj.languageData) {
-          i18nDOM.nonchrome('data-i18n', obj.languageData);
-        }
         obj.change(obj.currentPage);
       })
       .html(html);
-    if(i18nDOM && obj.languageData) {
-      i18nDOM.nonchrome('data-i18n', obj.languageData);
-    }
   };
 })(jQuery, window.$J);
