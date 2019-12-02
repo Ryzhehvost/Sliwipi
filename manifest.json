@@ -56,7 +56,6 @@
         "js/cookies.js",
         "js/get-data-by-event.js",
         "js/constants.js",
-        "js/jquery.min.js",
         "js/storage.js",
         "js/library-performance.js"
       ],
@@ -66,9 +65,7 @@
 
   "permissions": [
     "storage",
-    "*://steamcommunity.com/*/games*",
-    "*://store.steampowered.com/about*",
-    "*://store.steampowered.com/api/*"
+    "*://steamcommunity.com/*/games*"
   ]
 
 }

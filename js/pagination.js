@@ -14,9 +14,7 @@
  limitations under the License.
  */
 
-(function($, $J) {
-  if($J)
-    $ = $J;
+(function() {
   function generatePagination(currentPage, elements, perPage) {
     let html = '';
     let totalPages = Math.ceil(elements.length / perPage);
@@ -57,6 +55,8 @@
     return html;
   }
 
+
+
   /**
    * @name PaginationPluginParams
    * @property {number} currentPage
@@ -66,24 +66,27 @@
   /**
    * @param {PaginationPluginParams} obj
    */
-  $.fn.pagination = function(obj) {
-    let html = generatePagination(obj.currentPage, obj.elements, obj.perPage);
-    let $this = $(this);
-    $this
-      .off('click')
-      .on('click', 'button', function() {
-        let $inner = $(this);
-        let newPage = $inner.text();
-        if ($inner.hasClass('pagination-navprev'))
+  function pagination(elem,obj) {
+    let html = generatePagination(obj.currentPage, obj.elements, obj.perPage);    
+    let clickListener = function (event){
+        let inner = event.target;
+        if (inner.tagName != "BUTTON") return;
+        let newPage = inner.textContent;
+        if (inner.classList.contains('pagination-navprev'))
           obj.currentPage--;
-        else if ($inner.hasClass('pagination-navnext'))
+        else if (inner.classList.contains('pagination-navnext'))
           obj.currentPage++;
         else
           obj.currentPage = +newPage;
         let html = generatePagination(obj.currentPage, obj.elements, obj.perPage);
-        $this.html(html);
+        elem.innerHTML = html;
         obj.change(obj.currentPage);
-      })
-      .html(html);
+
+    }
+
+    elem.removeEventListener("click",clickListener);
+    elem.addEventListener("click",clickListener);
+    elem.innerHTML = html;
   };
-})(jQuery, window.$J);
+  window.pagination = pagination;
+})();

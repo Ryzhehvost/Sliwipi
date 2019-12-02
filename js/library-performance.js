@@ -40,10 +40,7 @@
     link2.setAttribute('href', chrome.extension.getURL('/css/library-performance.css'));
     document.head.appendChild(link2);
 
-    let html = await $.ajax({
-      url: chrome.extension.getURL('/html/library.html'),
-      dataType: 'text'
-    });
+    let html = await (await fetch(chrome.extension.getURL('/html/library.html'))).text();
 
     let s = document.createElement('script');
     s.innerHTML = `window.SLIWIPI = { 

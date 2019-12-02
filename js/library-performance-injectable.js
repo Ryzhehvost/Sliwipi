@@ -82,13 +82,9 @@
 /** @var {string} personaName */
 /** @var {string} profileLink */
 /** @var {function} UpdateGameInfoFromSummary */
-/** @var {object} jQuery */
-/** @var {object} $J */
 /** @var {boolean} SLIWIPI_BUILD_GAME_ROW_PATCHED */
 
-(async function ($, $J) {
-  if ($J)
-    $ = $J;
+(async function () {
   if(!window.SLIWIPI_BUILD_GAME_ROW_PATCHED)
     return;
   for(let game of window.rgGames) {
@@ -126,7 +122,6 @@
   let gameslistSortOptions = document.querySelector('#gameslist_sort_options');
   gameslistSortOptions.id = '';
   gameslistSortOptions.innerHTML = SLIWIPI.html;
-  console.log(SLIWIPI);
 
   let filterGamesLabel = document.createElement('span');
   filterGamesLabel.dataset.localeText = 'library_filter';
@@ -153,14 +148,15 @@
     label.dataset.localeText = target.dataset.localeText;
   }
   changeDropdownLabel(document.querySelector(`[data-data="${sortingBy}"]`));
-  $('#sliwipi-sort-by-dropdown').find('a').on('click', function(e) {
+  document.querySelector('#sliwipi-sort-by-dropdown').querySelector('a').addEventListener('click', function(e) {
     changeDropdownLabel(this);
     e.preventDefault();
 
     sortingBy = this.dataset.data;
     predebounceFilterApps();
   });
-  $('#sliwipi-filter-by-pulldown').find('a').on('click', function(e) {
+
+  document.querySelector('#sliwipi-filter-by-pulldown').querySelector('a').addEventListener('click', function(e) {
     changeDropdownLabel(this);
     e.preventDefault();
 
@@ -227,11 +223,12 @@
   }
 
   function reapplyPagination(num = 1) {
-    if(!$.fn.pagination) {
+    if(!pagination) {
       setTimeout(reapplyPagination.bind(null, num), 500);
       return;
     }
-    $('.library-owned-list-pagination').pagination({
+    console.log(num);
+    pagination(document.querySelector('.library-owned-list-pagination'),{
       currentPage: num,
       elements: filteredData,
       perPage: SLIWIPI.perPage,
@@ -289,4 +286,4 @@
   }
 
   predebounceFilterApps();
-})(jQuery, $J);
+})();
