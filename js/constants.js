@@ -15,11 +15,6 @@
  */
 
 /** The list of languages this extension is translated into */
-const LIST_AVAILABLE_LANGUAGES = {
-  english: 'en',
-  russian: 'ru',
-  brazilian: 'pt_BR'
-};
 
 const FILE_SIZE_MULTIPLIER = {
   B:   Math.pow(1024, 0),

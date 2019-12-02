@@ -53,7 +53,6 @@
       ],
       "js": [
         "js/BuildGameRow.js",
-        "js/cookies.js",
         "js/get-data-by-event.js",
         "js/constants.js",
         "js/storage.js",
