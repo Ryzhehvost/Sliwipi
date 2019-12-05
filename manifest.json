@@ -14,7 +14,6 @@
   "web_accessible_resources": [
     "css/common.css",
     "css/library-performance.css",
-    "js/BuildGameRow-injectable.js",
     "js/pagination.js",
     "js/thenBy.js",
     "js/is-in-viewport.js",
@@ -46,10 +45,6 @@
         "*://steamcommunity.com/*/games?tab=all*"
       ],
       "js": [
-        "js/BuildGameRow.js",
-        "js/get-data-by-event.js",
-        "js/constants.js",
-        "js/storage.js",
         "js/library-performance.js"
       ],
       "run_at": "document_start"

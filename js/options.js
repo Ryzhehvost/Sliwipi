@@ -14,6 +14,41 @@
  limitations under the License.
  */
 
+
+  /**
+   * Same as <code>chrome.storage[area].get</code>, but with a promise instead of a callback
+   * @param {string|string[]|object|object[]} keys
+   * @returns {Promise}
+   */
+  function get(keys) {
+    return new Promise((resolve, reject) => {
+      chrome.storage[this].get(keys, data => {
+        resolve(data);
+      });
+    });
+  }
+  /**
+   * Same as <code>chrome.storage[area].set</code>, but with a promise instead of a callback
+   * @param {object|object[]} data
+   * @returns {Promise}
+   */
+  function set(data) {
+    return new Promise((resolve, reject) => {
+      chrome.storage[this].set(data, () => {
+        resolve();
+      });
+    });
+  }
+  window.storage = {
+    get: get.bind('local'),
+    set: set.bind('local'),
+    sync: {
+      get: get.bind('sync'),
+      set: set.bind('sync')
+    }
+  };
+
+
 let library = {
   enabled: document.querySelector('#library-enabled'),
   perPage: document.querySelector('#library-per-page'),

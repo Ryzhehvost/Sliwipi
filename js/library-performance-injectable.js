@@ -85,6 +85,104 @@
 /** @var {boolean} SLIWIPI_BUILD_GAME_ROW_PATCHED */
 
 (async function () {
+
+
+  /** @property {ISliwipi|null} window.SLIWIPI */
+  function debounce(delay, cb) {
+    let timer;
+    return function() {
+      if(timer)
+        clearTimeout(timer);
+      timer = setTimeout(cb, delay);
+    };
+  }
+//  (window.SLIWIPI || window).debounce = debounce;
+
+  /** @property {ISliwipi|null} window.SLIWIPI */
+  function isInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return rect.top >= -300 &&
+      rect.left >= -300 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + 300 &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth) + 300;
+  }
+//  (window.SLIWIPI || window).isInViewport = isInViewport;
+
+  function generatePagination(currentPage, elements, perPage) {
+    let html = '';
+    let totalPages = Math.ceil(elements.length / perPage);
+    if (totalPages <= 1)
+      return '';
+    if (currentPage > 1)
+      html += '<button type="button" class="pagination-navprev btnv6_blue_hoverfade" data-locale-text="pagination_button_prev">&lt; prev</button>';
+    if(currentPage !== 1)
+      html += '<button type="button" class="btnv6_blue_hoverfade">1</button>';
+    else
+      html += '<span>1</span>';
+    if(currentPage === 5)
+      html += '<button type="button" class="btnv6_blue_hoverfade">2</button>';
+    if (currentPage > 2) {
+      if(currentPage > 5)
+        html += '<span>...</span>';
+      if (currentPage > 3)
+        html += '<button type="button" class="btnv6_blue_hoverfade">' + (currentPage - 2) + '</button>';
+      html += '<button type="button" class="btnv6_blue_hoverfade">' + (currentPage - 1) + '</button>';
+    }
+    if (currentPage !== 1 && currentPage !== totalPages)
+      html += '<span>' + currentPage + '</span>';
+    if (currentPage < totalPages - 1) {
+      html += '<button type="button" class="btnv6_blue_hoverfade">' + (currentPage + 1) + '</button>';
+      if (currentPage < totalPages - 2)
+        html += '<button type="button" class="btnv6_blue_hoverfade">' + (currentPage + 2) + '</button>';
+      if(currentPage < totalPages - 4)
+        html += '<span>...</span>';
+    }
+    if(currentPage === totalPages - 4)
+      html += '<button type="button" class="btnv6_blue_hoverfade">' + (totalPages - 1) + '</button>';
+    if(currentPage !== totalPages)
+      html += '<button type="button" class="btnv6_blue_hoverfade">' + totalPages + '</button>';
+    else
+      html += '<span>' + totalPages + '</span>';
+    if (currentPage < totalPages)
+      html += '<button type="button" class="pagination-navnext btnv6_blue_hoverfade" data-locale-text="pagination_button_next">next &gt;</button>';
+    return html;
+  }
+
+
+
+  /**
+   * @name PaginationPluginParams
+   * @property {number} currentPage
+   * @property {object[]} elements
+   * @property {number} perPage Amount of items displayed per page
+   */
+  /**
+   * @param {PaginationPluginParams} obj
+   */
+  function pagination(elem,obj) {
+    let html = generatePagination(obj.currentPage, obj.elements, obj.perPage);    
+    let clickListener = function (event){
+        let inner = event.target;
+        if (inner.tagName != "BUTTON") return;
+        let newPage = inner.textContent;
+        if (inner.classList.contains('pagination-navprev'))
+          obj.currentPage--;
+        else if (inner.classList.contains('pagination-navnext'))
+          obj.currentPage++;
+        else
+          obj.currentPage = +newPage;
+        let html = generatePagination(obj.currentPage, obj.elements, obj.perPage);
+        elem.innerHTML = html;
+        obj.change(obj.currentPage);
+
+    }
+
+    elem.removeEventListener("click",clickListener);
+    elem.addEventListener("click",clickListener);
+    elem.innerHTML = html;
+  };
+//  window.pagination = pagination;
+
   if(!window.SLIWIPI_BUILD_GAME_ROW_PATCHED)
     return;
   for(let game of window.rgGames) {
@@ -244,7 +342,7 @@
     reapplyPagination();
   }
 
-  window.filterApps = SLIWIPI.debounce(500, predebounceFilterApps);
+  window.filterApps = debounce(500, predebounceFilterApps);
 
   function changePage(newPage) {
     SLIWIPI.pageNum = newPage;
@@ -256,14 +354,14 @@
   function loadImagesInViewport() {
     const images = document.querySelectorAll('.gameListRowLogo img[id^="delayedimage_"]');
     for(const image of images) {
-      if(SLIWIPI.isInViewport(image)) {
+      if(isInViewport(image)) {
         image.src = image.parentNode.parentNode.parentNode.dataset.img || image.parentNode.parentNode.parentNode.parentNode.dataset.img;
         image.removeAttribute('id');
       }
     }
   }
 
-  document.addEventListener('scroll', SLIWIPI.debounce(50, loadImagesInViewport), { passive: true });
+  document.addEventListener('scroll', debounce(50, loadImagesInViewport), { passive: true });
 
   function regenerateList() {
     let popupsHtml = '';
