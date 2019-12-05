@@ -253,8 +253,6 @@
       e.preventDefault();
 
       sortingBy = this.dataset.data;
-      console.log("this ", this);
-      console.log("sortingBy ",sortingBy);
       predebounceFilterApps();
     });
   }
@@ -266,8 +264,6 @@
       e.preventDefault();
 
       filterBy = this.dataset.data;
-      console.log("this ", this);
-      console.log("filterBy ",filterBy);
       predebounceFilterApps();
     });
   }
