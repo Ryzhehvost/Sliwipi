@@ -85,14 +85,14 @@
 /** @var {boolean} SLIWIPI_BUILD_GAME_ROW_PATCHED */
 
 (async function () {
+  console.log(window.SLIWIPI_BUILD_GAME_ROW_PATCHED);
+  console.log(window.rgGames);
   if(!window.SLIWIPI_BUILD_GAME_ROW_PATCHED)
     return;
   for(let game of window.rgGames) {
     BuildGameRow(game);
   }
-
   document.querySelector('#games_list_rows').innerHTML = '<div class="library-owned-list-pagination"></div><div class="sliwipi-actual-list"></div><div class="library-owned-list-pagination"></div>';
-
   let hideUnnecessaryOptionsImg1 = document.querySelector('#global_actions > a > img');
   let hideUnnecessaryOptionsImg2 = document.querySelector('.profile_small_header_avatar > .playerAvatar > img');
   let hideUnnecessaryOptions = !hideUnnecessaryOptionsImg1 || !hideUnnecessaryOptionsImg2 || hideUnnecessaryOptionsImg1.getAttribute('src') !== hideUnnecessaryOptionsImg2.getAttribute('src').replace('_medium', '');
@@ -227,7 +227,6 @@
       setTimeout(reapplyPagination.bind(null, num), 500);
       return;
     }
-    console.log(num);
     pagination(document.querySelector('.library-owned-list-pagination'),{
       currentPage: num,
       elements: filteredData,

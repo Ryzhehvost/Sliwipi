@@ -15,6 +15,7 @@
  */
 
 (function() {
+  console.log("buildgamerow injected");
   Object.defineProperty(window, 'rgGames', {
     configurable: true,
     get() {
@@ -26,6 +27,7 @@
   });
 
   function onReady() {
+    console.log("buildgamerow onready");
     let str = window.BuildGameRow.toString().split('\n');
 
     function comment(line) {

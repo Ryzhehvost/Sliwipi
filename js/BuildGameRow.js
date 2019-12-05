@@ -14,10 +14,11 @@
  limitations under the License.
  */
 (function() {
-   chrome.storage.sync.get(["library"],library => {
+  console.log("sliwipi loading started");
+  chrome.storage.sync.get(["library"],library => {
   let enabled = library.library.enabled;
 
-  history.replaceState({}, document.title, location.href.replace(location.hash, ''));
+  //history.replaceState({}, document.title, location.href.replace(location.hash, ''));
 
   // if library part is disabled in options, don't continue further
   if(!enabled) {
@@ -25,9 +26,16 @@
   }
   // a script element to be injected into the page to replace the original
   // BuildGameRow function so it doesn't slow down the browser on large lists
-  let s = document.createElement('script');
-  s.src = chrome.extension.getURL('/js/BuildGameRow-injectable.js');
-  document.documentElement.appendChild(s);
-  s.parentNode.removeChild(s);
+  fetch(chrome.extension.getURL('/js/BuildGameRow-injectable.js')).then(result=>result.text()).then(function(result){
+      let s = document.createElement('script');                         
+      s.textContent = result;
+      document.documentElement.appendChild(s);                          
+      s.parentNode.removeChild(s);                                          
+    }
+  );
+//  let s = document.createElement('script');
+//  s.src = chrome.extension.getURL('/js/BuildGameRow-injectable.js');
+//  document.documentElement.appendChild(s);
+//  s.parentNode.removeChild(s);
   });
 })();
