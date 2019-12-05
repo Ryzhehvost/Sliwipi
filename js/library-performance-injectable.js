@@ -221,15 +221,15 @@
   gameslistSortOptions.id = '';
   gameslistSortOptions.innerHTML = SLIWIPI.html;
 
-  let filterGamesLabel = document.createElement('span');
-  filterGamesLabel.dataset.localeText = 'library_filter';
-  filterGamesLabel.textContent = 'Filter games';
-  gameslistSortOptions.parentNode.insertBefore(filterGamesLabel, gameslistSortOptions.nextSibling);
-  filterGamesLabel.parentNode.removeChild(filterGamesLabel.nextSibling);
+  //let filterGamesLabel = document.createElement('span');
+  //filterGamesLabel.dataset.localeText = 'library_filter';
+  //filterGamesLabel.textContent = 'Filter games';
+  //gameslistSortOptions.parentNode.insertBefore(filterGamesLabel, gameslistSortOptions.nextSibling);
+  //filterGamesLabel.parentNode.removeChild(filterGamesLabel.nextSibling);
 
-  let br = document.createElement('br');
-  let gamesInCommonCheckbox = document.querySelector('#gameslist_controls > .gray_bevel.for_text_input').nextElementSibling;
-  gamesInCommonCheckbox.parentNode.insertBefore(br, gamesInCommonCheckbox);
+  //let br = document.createElement('br');
+  //let gamesInCommonCheckbox = document.querySelector('#gameslist_controls > .gray_bevel.for_text_input').nextElementSibling;
+  //gamesInCommonCheckbox.parentNode.insertBefore(br, gamesInCommonCheckbox);
 
   if(hideUnnecessaryOptions) {
     document.querySelectorAll('[data-data="installedSize"],[data-data$="installed"]').forEach(v => {
@@ -246,21 +246,31 @@
     label.dataset.localeText = target.dataset.localeText;
   }
   changeDropdownLabel(document.querySelector(`[data-data="${sortingBy}"]`));
-  document.querySelector('#sliwipi-sort-by-dropdown').querySelector('a').addEventListener('click', function(e) {
-    changeDropdownLabel(this);
-    e.preventDefault();
+  let sortmenu = document.querySelector('#sliwipi-sort-by-dropdown').getElementsByTagName('a');
+  for (let menuindex=0;menuindex<sortmenu.length;menuindex++){
+    sortmenu[menuindex].addEventListener('click', function(e) {
+      changeDropdownLabel(this);
+      e.preventDefault();
 
-    sortingBy = this.dataset.data;
-    predebounceFilterApps();
-  });
+      sortingBy = this.dataset.data;
+      console.log("this ", this);
+      console.log("sortingBy ",sortingBy);
+      predebounceFilterApps();
+    });
+  }
 
-  document.querySelector('#sliwipi-filter-by-pulldown').querySelector('a').addEventListener('click', function(e) {
-    changeDropdownLabel(this);
-    e.preventDefault();
+  let filtermenu = document.querySelector('#sliwipi-filter-by-pulldown').getElementsByTagName('a');
+  for (let menuindex=0;menuindex<filtermenu.length;menuindex++){
+    filtermenu[menuindex].addEventListener('click', function(e) {
+      changeDropdownLabel(this);
+      e.preventDefault();
 
-    filterBy = this.dataset.data;
-    predebounceFilterApps();
-  });
+      filterBy = this.dataset.data;
+      console.log("this ", this);
+      console.log("filterBy ",filterBy);
+      predebounceFilterApps();
+    });
+  }
 
   let filterInput = document.querySelector('#gameFilter');
 
@@ -325,7 +335,6 @@
       setTimeout(reapplyPagination.bind(null, num), 500);
       return;
     }
-    console.log(num);
     pagination(document.querySelector('.library-owned-list-pagination'),{
       currentPage: num,
       elements: filteredData,
